@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class MainManager : MonoBehaviour
 {
+    public static MainManager Instance;
     GameManager gameManager;
     TowerManager towerManager;
 
@@ -15,6 +16,8 @@ public class MainManager : MonoBehaviour
         Initialize();
     }
     private void Initialize() {
+        Instance = this;
+
         gameManager = GetComponent<GameManager>();
         towerManager = GetComponent<TowerManager>();
 

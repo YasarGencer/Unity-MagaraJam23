@@ -10,6 +10,7 @@ public class TowerManager : MonoBehaviour
 
     [SerializeField] Transform tower;
     [SerializeField] float rotationSpeed = 1;
+    Tween tween;
 
     public void Initialize() {
         isInit = true;
@@ -27,7 +28,13 @@ public class TowerManager : MonoBehaviour
     }
     void Rotate(float angle) {
         var rotation = new Vector3(tower.rotation.x, tower.rotation.y + angle, tower.rotation.z);
-        tower.DORotate(rotation, 3 / rotationSpeed, RotateMode.WorldAxisAdd);
+        if(tween == null) {
+            tween = tower.DORotate(rotation, 3 / rotationSpeed, RotateMode.WorldAxisAdd).OnComplete(() => tween = null);
+            tween.Play();
+        }
+    }
+    public bool GetIfRotating() {
+        return tween != null;
     }
     private void Update() {
         if (Input.GetKeyDown(KeyCode.D))
