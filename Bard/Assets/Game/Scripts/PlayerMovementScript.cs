@@ -16,10 +16,13 @@ public class PlayerMovementScript : MonoBehaviour {
     public float runSpeed = 10f;
     public float gravity = 9.8f;
     public float jumpHeight = 3f;
+    public float rayDistance = 0.55f;
+    public float vectorOffset = 0.25f;
     [HideInInspector] public Vector3 velocity;
     [HideInInspector] public bool IsRotating;
     private float rotationSpeed = 90f;
     private Vector3 defaultScale;
+    private bool isGrounded;
     private void Awake() {
         inputManager = GetComponent<InputManager>();
         characterController = GetComponent<CharacterController>();
@@ -30,16 +33,9 @@ public class PlayerMovementScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        CheckGround();
         Move();
-        //if (Input.GetKeyDown(KeyCode.T) && !isRotating)
-        //{
-        //    RotateCaller(90,Vector3.up,1);
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.Y) && !isRotating)
-        //{
-        //    RotateCaller(90, Vector3.up, 1);
-        //}//
+        
     }
     private void Move() {
         if (IsRotating == false) {
@@ -69,25 +65,29 @@ public class PlayerMovementScript : MonoBehaviour {
 
             characterController.Move(moveDirection * speed * Time.deltaTime);
 
-
-            ApplyGravity();
             Jump();
+            ApplyGravity();
+            
         } else {
             animator.SetFloat("speed", 0);
         }
     }
 
     private void ApplyGravity() {
-        if (characterController.isGrounded == false) {
+        if (isGrounded == false) 
+        {
             velocity.y -= gravity * Time.deltaTime;
-        } else {
-            velocity.y = 0;
-        }
-
+            if (velocity.y<=-gravity)
+            {
+                velocity.y = -gravity;
+            }
+        } 
         characterController.Move(velocity * Time.deltaTime);
     }
     private void Jump() {
-        if (inputManager.jump && characterController.velocity.y == 0f) {
+        if (inputManager.jump && isGrounded==true) 
+        {
+            isGrounded = false;
             velocity.y = Mathf.Sqrt(2f * jumpHeight * gravity);
         }
         inputManager.jump = false;
@@ -130,5 +130,39 @@ public class PlayerMovementScript : MonoBehaviour {
 
         });
 
+    }
+    private void OnDrawGizmos()
+    {
+        // Ray baþlangýç noktalarýný belirle
+        Vector3 rayOriginRight = transform.position + Vector3.right* vectorOffset;
+        Vector3 rayOriginLeft = transform.position - Vector3.right*vectorOffset;
+
+        // Gizmos ile ray'leri 
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(rayOriginRight, Vector3.down * rayDistance);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(rayOriginLeft, Vector3.down * rayDistance);
+    }
+
+    private void CheckGround()
+    {
+        // Rayleri aþaðý doðru gönder
+        RaycastHit hitRight, hitLeft;
+
+        // Sað ray
+        if (Physics.Raycast(transform.position + Vector3.right * vectorOffset, Vector3.down, out hitRight, rayDistance))
+        {
+            Debug.Log("Right Ray hit something!");
+        }
+
+        // Sol ray
+        if (Physics.Raycast(transform.position - Vector3.right * vectorOffset, Vector3.down, out hitLeft, rayDistance))
+        {
+            Debug.Log("Left Ray hit something!");
+        }
+
+        // Ray'lerden biri bir þeye temas etti mi?
+        isGrounded = hitRight.collider != null || hitLeft.collider != null;
     }
 }

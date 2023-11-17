@@ -221,8 +221,8 @@ CharacterController:
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0
-  m_SkinWidth: 0.1
-  m_MinMoveDistance: 0.001
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7212861322703124670
 MonoBehaviour:
@@ -268,6 +268,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   move: {x: 0, y: 0}
   jump: 0
+  run: 0
+  runTimer: 0
+  maxRunTime: 1
 --- !u!114 &7212861322703124671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,9 +283,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48a2e1020d7fb8d409a88623d44eb238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 1607847221452053503}
   moveSpeed: 2.5
+  runSpeed: 10
   gravity: 9.8
   jumpHeight: 1
+  rayDistance: 0.59
+  vectorOffset: 0.25
+  velocity: {x: 0, y: -4.3829546, z: 0}
   IsRotating: 0
 --- !u!95 &1607847221452053503
 Animator:
