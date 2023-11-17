@@ -16,7 +16,7 @@ public class PlayerMovementScript : MonoBehaviour
     public float gravity = 9.8f;
     public float jumpHeight = 3f;
     private Vector3 velocity;
-    private bool isRotating;
+    [HideInInspector] public bool IsRotating;
     private float rotationSpeed = 90f;
     private Vector3 defaultScale;
     private void Awake()
@@ -45,7 +45,7 @@ public class PlayerMovementScript : MonoBehaviour
     }
     private void Move()
     {
-        if (isRotating == false)
+        if (IsRotating == false)
         {
         float directionX = Math.Abs(inputManager.move.x) > 0.6 ? 1 * (inputManager.move.x / Math.Abs(inputManager.move.x)) : 0;
             if (inputManager.move.x==1)
@@ -110,7 +110,6 @@ public class PlayerMovementScript : MonoBehaviour
     public IEnumerator RotatePlayer(float angle, Vector3 axis, float duration)
     {
         yield return new WaitForEndOfFrame();
-        isRotating = true;
         var rotation = new Vector3(transform.rotation.x, transform.rotation.y + angle, transform.rotation.z);
         transform.DOLocalRotate(rotation, duration, RotateMode.LocalAxisAdd).OnComplete(() => {
 
@@ -122,7 +121,7 @@ public class PlayerMovementScript : MonoBehaviour
             //moveDirection = transform.TransformDirection(transform.right); // Yönü objenin yönüne çevir
 
             int value = transform.localScale.x > 0 ? 1 : -1;
-            transform.DOMove(transform.position + transform.right * value, .25f).OnComplete(() => isRotating = false);
+            transform.DOMove(transform.position + transform.right * value, .25f).OnComplete(() => IsRotating = false);
 
         }); 
 
