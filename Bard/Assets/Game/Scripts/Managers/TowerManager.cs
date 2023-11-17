@@ -16,9 +16,9 @@ public class TowerManager : MonoBehaviour
         isInit = true;
     }
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.K))
             RotateRight();
-        else if (Input.GetKeyDown(KeyCode.A))
+        else if (Input.GetKeyDown(KeyCode.J))
             RotateLeft();
     }
     public bool GetIfRotating() {
