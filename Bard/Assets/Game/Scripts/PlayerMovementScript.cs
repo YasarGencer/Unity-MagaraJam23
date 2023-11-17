@@ -119,9 +119,10 @@ public class PlayerMovementScript : MonoBehaviour
             transform.rotation = Quaternion.Euler(currentRotation.x, newYRotation, currentRotation.z);
 
             Vector3 moveDirection = Vector3.zero;
-            moveDirection = transform.TransformDirection(transform.right); // Yönü objenin yönüne çevir
+            //moveDirection = transform.TransformDirection(transform.right); // Yönü objenin yönüne çevir
 
-            transform.DOLocalMove(transform.localPosition + moveDirection, .25f).OnComplete(() => isRotating = false);
+            int value = transform.localScale.x > 0 ? 1 : -1;
+            transform.DOMove(transform.position + transform.right * value, .25f).OnComplete(() => isRotating = false);
 
         }); 
 
