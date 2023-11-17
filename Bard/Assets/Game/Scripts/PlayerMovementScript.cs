@@ -7,32 +7,29 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PlayerMovementScript : MonoBehaviour
-{
+public class PlayerMovementScript : MonoBehaviour {
     private InputManager inputManager;
 
     private CharacterController characterController;
+    [SerializeField] Animator animator;
     public float moveSpeed = 5f;
     public float runSpeed = 10f;
     public float gravity = 9.8f;
     public float jumpHeight = 3f;
-    private Vector3 velocity;
+    [HideInInspector] public Vector3 velocity;
     [HideInInspector] public bool IsRotating;
     private float rotationSpeed = 90f;
     private Vector3 defaultScale;
-    private void Awake()
-    {
+    private void Awake() {
         inputManager = GetComponent<InputManager>();
         characterController = GetComponent<CharacterController>();
     }
-    void Start()
-    {
+    void Start() {
         defaultScale = transform.localScale;
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         Move();
         //if (Input.GetKeyDown(KeyCode.T) && !isRotating)
         //{
@@ -44,69 +41,61 @@ public class PlayerMovementScript : MonoBehaviour
         //    RotateCaller(90, Vector3.up, 1);
         //}//
     }
-    private void Move()
-    {
-        if (IsRotating == false)
-        {
-        float directionX = Math.Abs(inputManager.move.x) > 0.6 ? 1 * (inputManager.move.x / Math.Abs(inputManager.move.x)) : 0;
-            if (inputManager.move.x==1)
-            {
+    private void Move() {
+        if (IsRotating == false) {
+            float directionX = Math.Abs(inputManager.move.x) > 0.6 ? 1 * (inputManager.move.x / Math.Abs(inputManager.move.x)) : 0;
+            if (inputManager.move.x == 1) {
                 transform.localScale = new Vector3(defaultScale.x, transform.localScale.y, transform.localScale.z);
-            }
-            else if (inputManager.move.x==-1)
-            {
+            } else if (inputManager.move.x == -1) {
                 transform.localScale = new Vector3(-defaultScale.x, transform.localScale.y, transform.localScale.z);
             }
-        Vector3 moveDirection = new Vector3(directionX, 0f, 0f);
-        moveDirection = transform.TransformDirection(moveDirection); // Yönü objenin yönüne çevir
+            Vector3 moveDirection = new Vector3(directionX, 0f, 0f);
+            moveDirection = transform.TransformDirection(moveDirection); // Yönü objenin yönüne çevir
 
             float speed = inputManager.run ? runSpeed : moveSpeed;
 
-            if (inputManager.run)
-            {
+            if (inputManager.run) {
                 inputManager.runTimer += Time.deltaTime;
-                if (inputManager.runTimer>= inputManager.maxRunTime)
-                {
+                if (inputManager.runTimer >= inputManager.maxRunTime) {
                     inputManager.run = false;
                 }
             }
-            
-            
-            
+
+
+            if(moveDirection.x != 0)
+                animator.SetFloat("speed", inputManager.run ? 1 : .5f);
+            else
+                animator.SetFloat("speed", 0);
+
             characterController.Move(moveDirection * speed * Time.deltaTime);
 
 
             ApplyGravity();
-        Jump();
+            Jump();
+        } else {
+            animator.SetFloat("speed", 0);
         }
     }
 
-    private void ApplyGravity()
-    {
-        if (characterController.isGrounded == false)
-        {
+    private void ApplyGravity() {
+        if (characterController.isGrounded == false) {
             velocity.y -= gravity * Time.deltaTime;
-        }
-        else
-        {
+        } else {
             velocity.y = 0;
         }
 
         characterController.Move(velocity * Time.deltaTime);
     }
-    private void Jump()
-    {
-        if (inputManager.jump && characterController.velocity.y == 0f)
-        {
+    private void Jump() {
+        if (inputManager.jump && characterController.velocity.y == 0f) {
             velocity.y = Mathf.Sqrt(2f * jumpHeight * gravity);
         }
         inputManager.jump = false;
     }
 
-    
 
-    public void RotateCaller(float angle, Vector3 axis, float duration)
-    {
+
+    public void RotateCaller(float angle, Vector3 axis, float duration) {
         StartCoroutine(RotatePlayer(angle, axis, duration));
     }
     /*public void RotatePlayer(float angle, Vector3 axis, float duration)
@@ -124,8 +113,7 @@ public class PlayerMovementScript : MonoBehaviour
         isRotating = false;
        // characterController.enabled = true;
     }*/
-    public IEnumerator RotatePlayer(float angle, Vector3 axis, float duration)
-    {
+    public IEnumerator RotatePlayer(float angle, Vector3 axis, float duration) {
         yield return new WaitForEndOfFrame();
         var rotation = new Vector3(transform.rotation.x, transform.rotation.y + angle, transform.rotation.z);
         transform.DOLocalRotate(rotation, duration, RotateMode.LocalAxisAdd).OnComplete(() => {
@@ -140,7 +128,7 @@ public class PlayerMovementScript : MonoBehaviour
             int value = transform.localScale.x > 0 ? 1 : -1;
             transform.DOMove(transform.position + transform.right * value, .25f).OnComplete(() => IsRotating = false);
 
-        }); 
+        });
 
     }
 }

@@ -48,6 +48,7 @@ public class TowerManager : MonoBehaviour
                 tower.transform.rotation = Quaternion.Euler(currentRotation.x, newYRotation, currentRotation.z);
             });
             tween.Play();
+            playerMovementScript.velocity = Vector3.zero;
         }
     }
 }
