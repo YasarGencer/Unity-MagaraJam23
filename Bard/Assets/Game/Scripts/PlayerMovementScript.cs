@@ -30,15 +30,15 @@ public class PlayerMovementScript : MonoBehaviour
     void Update()
     {
         Move();
-        if (Input.GetKeyDown(KeyCode.T) && !isRotating)
-        {
-            RotateCaller(90,Vector3.up,1);
-        }
+        //if (Input.GetKeyDown(KeyCode.T) && !isRotating)
+        //{
+        //    RotateCaller(90,Vector3.up,1);
+        //}
 
-        if (Input.GetKeyDown(KeyCode.Y) && !isRotating)
-        {
-            RotateCaller(90, Vector3.up, 1);
-        }//
+        //if (Input.GetKeyDown(KeyCode.Y) && !isRotating)
+        //{
+        //    RotateCaller(90, Vector3.up, 1);
+        //}//
     }
     private void Move()
     {
@@ -106,16 +106,15 @@ public class PlayerMovementScript : MonoBehaviour
     }*/
     public IEnumerator RotatePlayer(float angle, Vector3 axis, float duration)
     {
+        yield return new WaitForEndOfFrame();
         isRotating = true;
-        float elapsedTime = 0f;
-        Quaternion initialRotation = transform.rotation;
-        Quaternion targetRotation = Quaternion.Euler(axis * angle) * initialRotation;
-        transform.DOLocalRotateQuaternion(targetRotation, duration);
-        while (elapsedTime < duration)
-        {
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-        isRotating = false;
+        var rotation = new Vector3(transform.rotation.x, transform.rotation.y + angle, transform.rotation.z);
+        transform.DOLocalRotate(rotation, duration, RotateMode.LocalAxisAdd).OnComplete(() => {
+            isRotating = false;
+
+            Vector3 currentRotation = transform.eulerAngles;
+            float newYRotation = Mathf.Round(currentRotation.y / 90) * 90;
+            transform.rotation = Quaternion.Euler(currentRotation.x, newYRotation, currentRotation.z);
+        }); 
     }
 }
