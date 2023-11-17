@@ -2,7 +2,10 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections.LowLevel.Unsafe;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerMovementScript : MonoBehaviour
 {
@@ -110,11 +113,17 @@ public class PlayerMovementScript : MonoBehaviour
         isRotating = true;
         var rotation = new Vector3(transform.rotation.x, transform.rotation.y + angle, transform.rotation.z);
         transform.DOLocalRotate(rotation, duration, RotateMode.LocalAxisAdd).OnComplete(() => {
-            isRotating = false;
 
             Vector3 currentRotation = transform.eulerAngles;
             float newYRotation = Mathf.Round(currentRotation.y / 90) * 90;
             transform.rotation = Quaternion.Euler(currentRotation.x, newYRotation, currentRotation.z);
+
+            Vector3 moveDirection = Vector3.zero;
+            moveDirection = transform.TransformDirection(transform.right); // Yönü objenin yönüne çevir
+
+            transform.DOLocalMove(transform.localPosition + moveDirection, .25f).OnComplete(() => isRotating = false);
+
         }); 
+
     }
 }
