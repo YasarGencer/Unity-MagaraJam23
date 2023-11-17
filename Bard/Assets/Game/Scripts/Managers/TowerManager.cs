@@ -14,14 +14,22 @@ public class TowerManager : MonoBehaviour
 
     public void Initialize() {
         isInit = true;
-    } 
-
-    void RotateRight() {
+    }
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.D))
+            RotateRight();
+        else if (Input.GetKeyDown(KeyCode.A))
+            RotateLeft();
+    }
+    public bool GetIfRotating() {
+        return tween != null;
+    }
+    public void RotateRight() {
         if (!isInit)
             return;
         Rotate(90);
     }
-    void RotateLeft() {
+    public void RotateLeft() {
         if (!isInit)
             return;
         Rotate(-90);
@@ -29,17 +37,8 @@ public class TowerManager : MonoBehaviour
     void Rotate(float angle) {
         var rotation = new Vector3(tower.rotation.x, tower.rotation.y + angle, tower.rotation.z);
         if(tween == null) {
-            tween = tower.DORotate(rotation, 3 / rotationSpeed, RotateMode.WorldAxisAdd).OnComplete(() => tween = null);
+            tween = tower.DORotate(rotation, 3 / rotationSpeed, RotateMode.LocalAxisAdd).OnComplete(() => tween = null);
             tween.Play();
         }
-    }
-    public bool GetIfRotating() {
-        return tween != null;
-    }
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.D))
-            RotateRight();
-        else if (Input.GetKeyDown(KeyCode.A))
-            RotateLeft();
     }
 }
