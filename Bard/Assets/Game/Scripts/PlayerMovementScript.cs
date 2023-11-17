@@ -34,7 +34,6 @@ public class PlayerMovementScript : MonoBehaviour
             RotateObject90Degrees();
         }
 
-        // Y tuþuna basýldýðýnda ve dönme iþlemi tamamlanmýþsa
         if (Input.GetKeyDown(KeyCode.Y) && !isRotating)
         {
             RotateObjectNegative90Degrees();
@@ -42,9 +41,13 @@ public class PlayerMovementScript : MonoBehaviour
     }
     private void Move()
     {
-        float directionX = Math.Abs(inputManager.move.x) > 0.6 ? 1 * (inputManager.move.x / Math.Abs(inputManager.move.x)) : 0; // sabit hýzla gitme büyüsü
+        float directionX = Math.Abs(inputManager.move.x) > 0.6 ? 1 * (inputManager.move.x / Math.Abs(inputManager.move.x)) : 0;
+
         Vector3 moveDirection = new Vector3(directionX, 0f, 0f);
+        moveDirection = transform.TransformDirection(moveDirection); // Yönü objenin yönüne çevir
+
         characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
+
         ApplyGravity();
         Jump();
     }
@@ -72,13 +75,11 @@ public class PlayerMovementScript : MonoBehaviour
     }
     void RotateObject90Degrees()
     {
-        // Y ekseninde 90 derece saða döndür
         StartCoroutine(Rotate(90f));
     }
 
     void RotateObjectNegative90Degrees()
     {
-        // Y ekseninde 90 derece sola döndür
         StartCoroutine(Rotate(-90f));
     }
 
@@ -93,24 +94,10 @@ public class PlayerMovementScript : MonoBehaviour
         float newYRotation = Mathf.Round((currentRotation.y / 90) * 90)+angle;
         while (elapsedTime < duration)
         {
-            
-            Debug.Log("trying rotate: " + newYRotation);
             transform.rotation = Quaternion.Euler(currentRotation.x, newYRotation, currentRotation.z);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-
-        // Dönme iþlemi tamamlandýðýnda isRotating'i false yap
         isRotating = false;
     }
-    private void RotatePlayer()
-    {
-        /*var rotation = new Vector3(tower.rotation.x, tower.rotation.y + angle, tower.rotation.z);
-        if (tween == null)
-        {
-            tween = tower.DORotate(rotation, 3 / rotationSpeed, RotateMode.WorldAxisAdd).OnComplete(() => tween = null);
-            tween.Play();
-        }*/
-    }
-
 }
