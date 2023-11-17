@@ -10,7 +10,8 @@ using UnityEngine.EventSystems;
 public class PlayerMovementScript : MonoBehaviour {
     private InputManager inputManager;
 
-    private CharacterController characterController;
+    //private CharacterController characterController;
+    public Rigidbody rb;
     [SerializeField] Animator animator;
     public float moveSpeed = 5f;
     public float runSpeed = 10f;
@@ -20,15 +21,19 @@ public class PlayerMovementScript : MonoBehaviour {
     public float vectorOffset = 0.25f;
     [HideInInspector] public Vector3 velocity;
     [HideInInspector] public bool IsRotating;
+    public float elevate = 0.01f;
+    private GameObject rayTransformGameObject;
     private float rotationSpeed = 90f;
     private Vector3 defaultScale;
     private bool isGrounded;
     private void Awake() {
         inputManager = GetComponent<InputManager>();
-        characterController = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
+        //characterController = GetComponent<CharacterController>();
     }
     void Start() {
         defaultScale = transform.localScale;
+        Physics.IgnoreLayerCollision(3, 6);
     }
 
     // Update is called once per frame
@@ -63,32 +68,21 @@ public class PlayerMovementScript : MonoBehaviour {
             else
                 animator.SetFloat("speed", 0);
 
-            characterController.Move(moveDirection * speed * Time.deltaTime);
-
+            //characterController.Move(moveDirection * speed * Time.deltaTime);
+            //rb.MovePosition(rb.position + moveDirection * speed * Time.deltaTime);
+            //rb.DOMove(rb.position + moveDirection * speed * Time.deltaTime,0);
+            rb.velocity = new Vector3(directionX * speed,rb.velocity.y ,rb.velocity.z);
             Jump();
-            ApplyGravity();
             
         } else {
             animator.SetFloat("speed", 0);
         }
     }
-
-    private void ApplyGravity() {
-        if (isGrounded == false) 
-        {
-            velocity.y -= gravity * Time.deltaTime;
-            if (velocity.y<=-gravity)
-            {
-                velocity.y = -gravity;
-            }
-        } 
-        characterController.Move(velocity * Time.deltaTime);
-    }
     private void Jump() {
         if (inputManager.jump && isGrounded==true) 
         {
             isGrounded = false;
-            velocity.y = Mathf.Sqrt(2f * jumpHeight * gravity);
+            rb.AddForce(0,Mathf.Sqrt(2f * jumpHeight),0,ForceMode.Impulse);
         }
         inputManager.jump = false;
     }
@@ -98,21 +92,7 @@ public class PlayerMovementScript : MonoBehaviour {
     public void RotateCaller(float angle, Vector3 axis, float duration) {
         StartCoroutine(RotatePlayer(angle, axis, duration));
     }
-    /*public void RotatePlayer(float angle, Vector3 axis, float duration)
-    {
-        characterController.enabled = false;
-        isRotating = true;
-        float elapsedTime = 0f;
-        Quaternion initialRotation = transform.rotation;
-        Quaternion targetRotation = Quaternion.Euler(axis * angle) * initialRotation;
-        transform.DOLocalRotateQuaternion(targetRotation, 2);
-        while (elapsedTime < duration)
-        {
-            elapsedTime += Time.deltaTime;
-        }
-        isRotating = false;
-       // characterController.enabled = true;
-    }*/
+
     public IEnumerator RotatePlayer(float angle, Vector3 axis, float duration) {
         yield return new WaitForEndOfFrame();
         var rotation = new Vector3(transform.rotation.x, transform.rotation.y + angle, transform.rotation.z);
@@ -124,7 +104,29 @@ public class PlayerMovementScript : MonoBehaviour {
 
             Vector3 moveDirection = Vector3.zero;
             //moveDirection = transform.TransformDirection(transform.right); // Yönü objenin yönüne çevir
+            /*float tempRotate = transform.localRotation.eulerAngles.y;
+            Debug.Log("tempRotate: " + tempRotate);
+            if (tempRotate == 0 || tempRotate == 360)
+            {
+                Debug.Log("Rotate.y:0||360");
 
+                rb.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
+            }
+            else if (tempRotate == -90 || tempRotate == 270)
+            {
+                Debug.Log("Rotate.y:-90||270");
+                rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezeRotation;
+            }
+            else if (tempRotate == -180 || tempRotate == 180)
+            {
+                Debug.Log("Rotate.y:-180||180");
+                rb.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
+            }
+            else if (tempRotate == 90 || tempRotate == -270)
+            {
+                Debug.Log("Rotate.y:90||-270");
+                rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezeRotation;
+            }*/
             int value = transform.localScale.x > 0 ? 1 : -1;
             transform.DOMove(transform.position + transform.right * value, .25f).OnComplete(() => IsRotating = false);
 
@@ -134,7 +136,7 @@ public class PlayerMovementScript : MonoBehaviour {
     private void OnDrawGizmos()
     {
         // Ray baþlangýç noktalarýný belirle
-        Vector3 rayOriginRight = transform.position + Vector3.right* vectorOffset;
+        Vector3 rayOriginRight =transform.position + Vector3.right* vectorOffset;
         Vector3 rayOriginLeft = transform.position - Vector3.right*vectorOffset;
 
         // Gizmos ile ray'leri 
@@ -153,16 +155,26 @@ public class PlayerMovementScript : MonoBehaviour {
         // Sað ray
         if (Physics.Raycast(transform.position + Vector3.right * vectorOffset, Vector3.down, out hitRight, rayDistance))
         {
-            Debug.Log("Right Ray hit something!");
+            //Debug.Log("Right Ray hit something!");
         }
 
         // Sol ray
         if (Physics.Raycast(transform.position - Vector3.right * vectorOffset, Vector3.down, out hitLeft, rayDistance))
         {
-            Debug.Log("Left Ray hit something!");
+            //Debug.Log("Left Ray hit something!");
         }
 
         // Ray'lerden biri bir þeye temas etti mi?
         isGrounded = hitRight.collider != null || hitLeft.collider != null;
+
+        if (hitLeft.collider!=null && hitLeft.collider.CompareTag("MovingPlatform"))
+        {
+            //characterController.Move(new Vector3(0,transform.position.y - hitLeft.collider.transform.position.y + elevate, 0));
+        }
+        else if (hitRight.collider != null && hitRight.collider.CompareTag("MovingPlatform"))
+        {
+            //characterController.Move(new Vector3(0, transform.position.y - hitRight.collider.transform.position.y + elevate, 0));
+        }
     }
+    
 }

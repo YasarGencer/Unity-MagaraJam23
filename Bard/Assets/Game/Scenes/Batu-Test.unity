@@ -9644,10 +9644,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1113996454}
     m_Modifications:
-    - target: {fileID: 7273663057309575697, guid: 30dc8b5c7127f7848b1cce23daf79941, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 6.21
-      objectReference: {fileID: 0}
     - target: {fileID: 7273663057919540323, guid: 30dc8b5c7127f7848b1cce23daf79941, type: 3}
       propertyPath: m_Name
       value: MovingPlatform
@@ -9696,25 +9692,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8864912993271943206, guid: 30dc8b5c7127f7848b1cce23daf79941, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2.2446218
-      objectReference: {fileID: 0}
-    - target: {fileID: 8864912993271943206, guid: 30dc8b5c7127f7848b1cce23daf79941, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8864912993271943206, guid: 30dc8b5c7127f7848b1cce23daf79941, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30dc8b5c7127f7848b1cce23daf79941, type: 3}
---- !u!4 &981492438 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7273663057919540349, guid: 30dc8b5c7127f7848b1cce23daf79941, type: 3}
-  m_PrefabInstance: {fileID: 981492437}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1113996453
 GameObject:
   m_ObjectHideFlags: 0
@@ -9749,7 +9728,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 967374462}
-  - {fileID: 981492438}
+  - {fileID: 7273663056954826408}
   m_Father: {fileID: 552403663}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12588,3 +12567,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44b2409131d86e64284e709fe9fe5997, type: 3}
+--- !u!4 &7273663056954826408 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7273663057919540349, guid: 30dc8b5c7127f7848b1cce23daf79941, type: 3}
+  m_PrefabInstance: {fileID: 981492437}
+  m_PrefabAsset: {fileID: 0}
