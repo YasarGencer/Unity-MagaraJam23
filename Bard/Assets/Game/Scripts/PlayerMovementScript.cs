@@ -13,6 +13,7 @@ public class PlayerMovementScript : MonoBehaviour
 
     private CharacterController characterController;
     public float moveSpeed = 5f;
+    public float runSpeed = 10f;
     public float gravity = 9.8f;
     public float jumpHeight = 3f;
     private Vector3 velocity;
@@ -59,9 +60,23 @@ public class PlayerMovementScript : MonoBehaviour
         Vector3 moveDirection = new Vector3(directionX, 0f, 0f);
         moveDirection = transform.TransformDirection(moveDirection); // Yönü objenin yönüne çevir
 
-        characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
+            float speed = inputManager.run ? runSpeed : moveSpeed;
 
-        ApplyGravity();
+            if (inputManager.run)
+            {
+                inputManager.runTimer += Time.deltaTime;
+                if (inputManager.runTimer>= inputManager.maxRunTime)
+                {
+                    inputManager.run = false;
+                }
+            }
+            
+            
+            
+            characterController.Move(moveDirection * speed * Time.deltaTime);
+
+
+            ApplyGravity();
         Jump();
         }
     }
@@ -87,6 +102,8 @@ public class PlayerMovementScript : MonoBehaviour
         }
         inputManager.jump = false;
     }
+
+    
 
     public void RotateCaller(float angle, Vector3 axis, float duration)
     {
