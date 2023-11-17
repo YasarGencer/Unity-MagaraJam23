@@ -15,6 +15,7 @@ public class PlayerMovementScript : MonoBehaviour
     private Vector3 velocity;
     private bool isRotating;
     private float rotationSpeed = 90f;
+    private Vector3 defaultScale;
     private void Awake()
     {
         inputManager = GetComponent<InputManager>();
@@ -22,7 +23,7 @@ public class PlayerMovementScript : MonoBehaviour
     }
     void Start()
     {
-
+        defaultScale = transform.localScale;
     }
 
     // Update is called once per frame
@@ -41,12 +42,17 @@ public class PlayerMovementScript : MonoBehaviour
     }
     private void Move()
     {
-        if (characterController.enabled == true)
+        if (isRotating == false)
         {
-
-        
         float directionX = Math.Abs(inputManager.move.x) > 0.6 ? 1 * (inputManager.move.x / Math.Abs(inputManager.move.x)) : 0;
-
+            if (inputManager.move.x==1)
+            {
+                transform.localScale = new Vector3(defaultScale.x, transform.localScale.y, transform.localScale.z);
+            }
+            else if (inputManager.move.x==-1)
+            {
+                transform.localScale = new Vector3(-defaultScale.x, transform.localScale.y, transform.localScale.z);
+            }
         Vector3 moveDirection = new Vector3(directionX, 0f, 0f);
         moveDirection = transform.TransformDirection(moveDirection); // Yönü objenin yönüne çevir
 
@@ -100,7 +106,6 @@ public class PlayerMovementScript : MonoBehaviour
     }*/
     public IEnumerator RotatePlayer(float angle, Vector3 axis, float duration)
     {
-        characterController.enabled = false;
         isRotating = true;
         float elapsedTime = 0f;
         Quaternion initialRotation = transform.rotation;
@@ -112,6 +117,5 @@ public class PlayerMovementScript : MonoBehaviour
             yield return null;
         }
         isRotating = false;
-        characterController.enabled = true;
     }
 }
