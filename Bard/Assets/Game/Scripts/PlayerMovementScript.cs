@@ -31,16 +31,20 @@ public class PlayerMovementScript : MonoBehaviour
         Move();
         if (Input.GetKeyDown(KeyCode.T) && !isRotating)
         {
-            RotateObject90Degrees();
+            RotateCaller(90,Vector3.up,1);
         }
 
         if (Input.GetKeyDown(KeyCode.Y) && !isRotating)
         {
-            RotateObjectNegative90Degrees();
+            RotateCaller(90, Vector3.up, 1);
         }
     }
     private void Move()
     {
+        if (characterController.enabled == true)
+        {
+
+        
         float directionX = Math.Abs(inputManager.move.x) > 0.6 ? 1 * (inputManager.move.x / Math.Abs(inputManager.move.x)) : 0;
 
         Vector3 moveDirection = new Vector3(directionX, 0f, 0f);
@@ -50,6 +54,7 @@ public class PlayerMovementScript : MonoBehaviour
 
         ApplyGravity();
         Jump();
+        }
     }
 
     private void ApplyGravity()
@@ -73,31 +78,40 @@ public class PlayerMovementScript : MonoBehaviour
         }
         inputManager.jump = false;
     }
-    void RotateObject90Degrees()
-    {
-        StartCoroutine(Rotate(90f));
-    }
 
-    void RotateObjectNegative90Degrees()
+    public void RotateCaller(float angle, Vector3 axis, float duration)
     {
-        StartCoroutine(Rotate(-90f));
+        StartCoroutine(RotatePlayer(angle, axis, duration));
     }
-
-    IEnumerator Rotate(float angle)
+    /*public void RotatePlayer(float angle, Vector3 axis, float duration)
     {
-        // Dönme iþlemi baþladýðýnda isRotating'i true yap
+        characterController.enabled = false;
         isRotating = true;
-
         float elapsedTime = 0f;
-        float duration = 1f / rotationSpeed; // Sürekli dönmeyi 1 saniyede tamamlamak için
-        Vector3 currentRotation = transform.eulerAngles;
-        float newYRotation = Mathf.Round((currentRotation.y / 90) * 90)+angle;
+        Quaternion initialRotation = transform.rotation;
+        Quaternion targetRotation = Quaternion.Euler(axis * angle) * initialRotation;
+        transform.DOLocalRotateQuaternion(targetRotation, 2);
         while (elapsedTime < duration)
         {
-            transform.rotation = Quaternion.Euler(currentRotation.x, newYRotation, currentRotation.z);
+            elapsedTime += Time.deltaTime;
+        }
+        isRotating = false;
+       // characterController.enabled = true;
+    }*/
+    public IEnumerator RotatePlayer(float angle, Vector3 axis, float duration)
+    {
+        characterController.enabled = false;
+        isRotating = true;
+        float elapsedTime = 0f;
+        Quaternion initialRotation = transform.rotation;
+        Quaternion targetRotation = Quaternion.Euler(axis * angle) * initialRotation;
+        transform.DOLocalRotateQuaternion(targetRotation, duration);
+        while (elapsedTime < duration)
+        {
             elapsedTime += Time.deltaTime;
             yield return null;
         }
         isRotating = false;
+        characterController.enabled = true;
     }
 }
