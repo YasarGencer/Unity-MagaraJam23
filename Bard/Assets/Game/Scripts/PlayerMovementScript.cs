@@ -37,7 +37,7 @@ public class PlayerMovementScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Y) && !isRotating)
         {
             RotateCaller(90, Vector3.up, 1);
-        }
+        }//
     }
     private void Move()
     {
