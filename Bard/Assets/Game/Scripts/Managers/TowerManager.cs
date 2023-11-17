@@ -19,10 +19,10 @@ public class TowerManager : MonoBehaviour
         isInit = true;
     }
     private void Update() {
-        //if (Input.GetKeyDown(KeyCode.K))
-        //    RotateRight();
-        //else if (Input.GetKeyDown(KeyCode.J))
-        //    RotateLeft();
+        if (Input.GetKeyDown(KeyCode.K))
+            RotateRight();
+        else if (Input.GetKeyDown(KeyCode.J))
+            RotateLeft();
     }
     public bool GetIfRotating() {
         return tween != null;
