@@ -109,12 +109,13 @@ public class PlayerMovementScript : MonoBehaviour {
 
 
 
-    public void RotateCaller(float angle, Vector3 axis, float duration) {
-        StartCoroutine(RotatePlayer(angle, axis, duration));
+    public void RotateCaller(float angle, Vector3 axis, float duration, bool right) {
+        StartCoroutine(RotatePlayer(angle, axis, duration, right));
     }
 
-    public IEnumerator RotatePlayer(float angle, Vector3 axis, float duration) {
+    public IEnumerator RotatePlayer(float angle, Vector3 axis, float duration, bool right) {
         yield return new WaitForEndOfFrame();
+        rb.useGravity = false;
         var rotation = new Vector3(transform.rotation.x, transform.rotation.y + angle, transform.rotation.z);
         transform.DOLocalRotate(rotation, duration, RotateMode.LocalAxisAdd).OnComplete(() => {
 
@@ -147,8 +148,13 @@ public class PlayerMovementScript : MonoBehaviour {
                 Debug.Log("Rotate.y:90||-270");
                 rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezeRotation;
             }*/
-            int value = transform.localScale.x > 0 ? 1 : -1;
-            transform.DOMove(transform.position + transform.right * value, .25f).OnComplete(() => IsRotating = false);
+            var value = (right == true ? 1 : -1);
+            //var value = transform.localScale.x > 0 ? 1 : -1;
+            transform.DOMove(transform.position + transform.right * value, .25f).OnComplete(() =>
+            {
+                IsRotating = false;
+                rb.useGravity = true;
+            });
 
         });
 

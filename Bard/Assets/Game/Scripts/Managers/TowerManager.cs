@@ -41,7 +41,7 @@ public class TowerManager : MonoBehaviour
     void Rotate(float angle) {
         var rotation = new Vector3(tower.rotation.x, tower.rotation.y + angle, tower.rotation.z);
         if(tween == null) {
-            playerMovementScript.RotateCaller(-angle, Vector3.up, 3 / rotationSpeed);
+            playerMovementScript.RotateCaller(-angle, Vector3.up, 3 / rotationSpeed, angle > 0);
             tween = tower.DORotate(rotation, 3 / rotationSpeed, RotateMode.LocalAxisAdd).OnComplete(() => {
                 tween = null;
                 Vector3 currentRotation = tower.eulerAngles;
