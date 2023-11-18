@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 13.0859375
+  spritePixelsToUnits: 58.59375
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -112,6 +112,18 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -120,11 +132,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 288
-        width: 288
-        height: 288
+        y: 1200
+        width: 1200
+        height: 1200
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -140,12 +152,12 @@ TextureImporter:
       name: Jump_1
       rect:
         serializedVersion: 2
-        x: 288
-        y: 288
-        width: 288
-        height: 288
+        x: 1200
+        y: 1200
+        width: 1200
+        height: 1200
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -161,12 +173,12 @@ TextureImporter:
       name: Jump_2
       rect:
         serializedVersion: 2
-        x: 576
-        y: 288
-        width: 288
-        height: 288
+        x: 2400
+        y: 1200
+        width: 1200
+        height: 1200
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -182,12 +194,12 @@ TextureImporter:
       name: Jump_3
       rect:
         serializedVersion: 2
-        x: 864
-        y: 288
-        width: 288
-        height: 288
+        x: 3600
+        y: 1200
+        width: 1200
+        height: 1200
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -203,12 +215,12 @@ TextureImporter:
       name: Jump_4
       rect:
         serializedVersion: 2
-        x: 1152
-        y: 288
-        width: 288
-        height: 288
+        x: 4800
+        y: 1200
+        width: 1200
+        height: 1200
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -226,10 +238,10 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 288
-        height: 288
+        width: 1200
+        height: 1200
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -245,12 +257,12 @@ TextureImporter:
       name: Jump_6
       rect:
         serializedVersion: 2
-        x: 288
+        x: 1200
         y: 0
-        width: 288
-        height: 288
+        width: 1200
+        height: 1200
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -266,12 +278,12 @@ TextureImporter:
       name: Jump_7
       rect:
         serializedVersion: 2
-        x: 576
+        x: 2400
         y: 0
-        width: 288
-        height: 288
+        width: 1200
+        height: 1200
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

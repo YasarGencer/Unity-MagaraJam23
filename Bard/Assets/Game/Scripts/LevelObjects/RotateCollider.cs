@@ -21,7 +21,8 @@ public class RotateCollider : MonoBehaviour
     void Rotator(bool right, Transform player) {
         Rigidbody rb = player.GetComponent<Rigidbody>();
         rb.velocity = Vector3.zero;
-        
+        var emissionModule = player.GetComponent<PlayerMovementScript>().diamondParticle.emission;
+        emissionModule.enabled = false;
         player.GetComponent<PlayerMovementScript>().IsRotating = true;
         player.DOMove(new Vector3(transform.position.x, player.position.y, transform.position.z), .15f).OnComplete(() => {
 

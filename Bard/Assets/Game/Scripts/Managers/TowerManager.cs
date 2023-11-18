@@ -47,8 +47,11 @@ public class TowerManager : MonoBehaviour
                 Vector3 currentRotation = tower.eulerAngles;
                 float newYRotation = Mathf.Round(currentRotation.y / 90) * 90;
                 tower.transform.rotation = Quaternion.Euler(currentRotation.x, newYRotation, currentRotation.z);
+                var emissionModule = playerMovementScript.diamondParticle.emission;
+                emissionModule.enabled = true;
             });
             tween.Play();
+            
             playerMovementScript.velocity = Vector3.zero;
         }
     }

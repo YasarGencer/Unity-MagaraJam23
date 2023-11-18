@@ -21,11 +21,12 @@ public class PlayerMovementScript : MonoBehaviour {
     public float vectorOffset = 0.25f;
     [HideInInspector] public Vector3 velocity;
     [HideInInspector] public bool IsRotating;
+    public ParticleSystem diamondParticle;
     public float elevate = 0.01f;
     private GameObject rayTransformGameObject;
     private float rotationSpeed = 90f;
     private Vector3 defaultScale;
-    private bool isGrounded;
+    [SerializeField]private bool isGrounded;
     private bool canJump = true;
     public bool isClimbing=false;
     private void Awake() {

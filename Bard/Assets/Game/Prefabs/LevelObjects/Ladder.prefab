@@ -103,11 +103,11 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 00d5d12a949c866468fff8d4dd7751de, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: ed75fc16643cf364f9f2b56ca6b1b23f, type: 2}
+      objectReference: {fileID: 2100000, guid: 07450427d9810ba4b988bcc523471338, type: 2}
     - target: {fileID: -7511558181221131132, guid: 00d5d12a949c866468fff8d4dd7751de, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 14074763359ef7a4db83aeaa14d75bde, type: 2}
+      objectReference: {fileID: 2100000, guid: 6ee9e483f9746754d911e26454a6b42b, type: 2}
     - target: {fileID: 919132149155446097, guid: 00d5d12a949c866468fff8d4dd7751de, type: 3}
       propertyPath: m_Name
       value: merdiven_asset
@@ -224,11 +224,11 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 00d5d12a949c866468fff8d4dd7751de, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: ed75fc16643cf364f9f2b56ca6b1b23f, type: 2}
+      objectReference: {fileID: 2100000, guid: 07450427d9810ba4b988bcc523471338, type: 2}
     - target: {fileID: -7511558181221131132, guid: 00d5d12a949c866468fff8d4dd7751de, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 14074763359ef7a4db83aeaa14d75bde, type: 2}
+      objectReference: {fileID: 2100000, guid: 6ee9e483f9746754d911e26454a6b42b, type: 2}
     - target: {fileID: 919132149155446097, guid: 00d5d12a949c866468fff8d4dd7751de, type: 3}
       propertyPath: m_Name
       value: merdiven_asset
