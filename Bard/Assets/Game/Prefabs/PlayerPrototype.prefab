@@ -367,8 +367,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 2080124763}
   animator: {fileID: 1607847221452053503}
-  moveSpeed: 2.5
-  runSpeed: 10
+  moveSpeed: 2
+  runSpeed: 4
   gravity: 9.8
   jumpHeight: 10
   rayDistance: 0.59
@@ -376,6 +376,7 @@ MonoBehaviour:
   velocity: {x: 0, y: -4.3829546, z: 0}
   IsRotating: 0
   elevate: 0.01
+  isClimbing: 0
 --- !u!95 &1607847221452053503
 Animator:
   serializedVersion: 4

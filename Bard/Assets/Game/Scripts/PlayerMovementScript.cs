@@ -74,8 +74,16 @@ public class PlayerMovementScript : MonoBehaviour {
             //rb.MovePosition(rb.position + moveDirection * speed * Time.deltaTime);
             //rb.DOMove(rb.position + moveDirection * speed * Time.deltaTime,0);
             var yAxis=isClimbing && canJump ? inputManager.move.y : rb.velocity.y;
-            rb.velocity = new Vector3(directionX * speed, yAxis, rb.velocity.z);
-            
+
+
+
+            //rb.velocity = new Vector3(directionX * speed, yAxis, rb.velocity.z);  //old system
+            if (MathF.Abs(rb.velocity.x)<=speed || (rb.velocity.x/MathF.Abs(rb.velocity.x) != (directionX/ MathF.Abs(directionX))))
+            {
+                rb.AddRelativeForce(new Vector3(directionX * speed * 3, 0, 0));
+            }
+                
+                //rb.velocity = new Vector3(MathF.Abs(rb.velocity.x) > MathF.Abs(runSpeed)? (rb.velocity.x/MathF.Abs(rb.velocity.x) * moveSpeed) : rb.velocity.x, yAxis, rb.velocity.z);
             Jump();
             
         } else {
@@ -183,7 +191,7 @@ public class PlayerMovementScript : MonoBehaviour {
             animator.SetBool("grounded", isGrounded);
 
         }
-
+/*
         if (hitLeft.collider!=null && hitLeft.collider.CompareTag("MovingPlatform"))
         {
             //characterController.Move(new Vector3(0,transform.position.y - hitLeft.collider.transform.position.y + elevate, 0));
@@ -191,7 +199,7 @@ public class PlayerMovementScript : MonoBehaviour {
         else if (hitRight.collider != null && hitRight.collider.CompareTag("MovingPlatform"))
         {
             //characterController.Move(new Vector3(0, transform.position.y - hitRight.collider.transform.position.y + elevate, 0));
-        }
+        }*/
     }
 
     private void OnTriggerStay(Collider other)
