@@ -30,6 +30,7 @@ public class TowerManager : MonoBehaviour
     public void RotateRight() {
         if (!isInit)
             return;
+        print("rotate right");
         Rotate(90);
     }
     public void RotateLeft() {

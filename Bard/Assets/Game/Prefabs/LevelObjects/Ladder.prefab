@@ -23,16 +23,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4899442723784404567}
-  m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: -0.5}
+  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
   m_LocalPosition: {x: -5.39, y: -2.7159996, z: 4.344}
-  m_LocalScale: {x: 5.17, y: 5.17, z: 136.46931}
+  m_LocalScale: {x: 2.5, y: 5.1699996, z: 136.46931}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4932822920336449591}
   - {fileID: 4932822922044342769}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 90}
 --- !u!1001 &4899442722079172122
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 00d5d12a949c866468fff8d4dd7751de, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.02168
+      value: 0.01707
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 00d5d12a949c866468fff8d4dd7751de, type: 3}
       propertyPath: m_LocalRotation.w
@@ -112,6 +112,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: merdiven_asset
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 00d5d12a949c866468fff8d4dd7751de, type: 3}
+      propertyPath: m_TagString
+      value: Ladder
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00d5d12a949c866468fff8d4dd7751de, type: 3}
 --- !u!4 &4932822922044342769 stripped
@@ -119,6 +123,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 00d5d12a949c866468fff8d4dd7751de, type: 3}
   m_PrefabInstance: {fileID: 4899442722079172122}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5710345401797434187 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 00d5d12a949c866468fff8d4dd7751de, type: 3}
+  m_PrefabInstance: {fileID: 4899442722079172122}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &493118503
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5710345401797434187}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.20851864, y: 0.11, z: 0.017583812}
+  m_Center: {x: -0.0000039339066, y: -4.656613e-10, z: -0.00015987408}
+--- !u!65 &493118504
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5710345401797434187}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.20851864, y: 0.02, z: 0.017583812}
+  m_Center: {x: -0.0000039339066, y: -4.656613e-10, z: -0.00015987408}
 --- !u!1001 &4899442723778611164
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -198,6 +233,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: merdiven_asset
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 00d5d12a949c866468fff8d4dd7751de, type: 3}
+      propertyPath: m_TagString
+      value: Ladder
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00d5d12a949c866468fff8d4dd7751de, type: 3}
 --- !u!4 &4932822920336449591 stripped
@@ -205,3 +244,34 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 00d5d12a949c866468fff8d4dd7751de, type: 3}
   m_PrefabInstance: {fileID: 4899442723778611164}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5710345400276187789 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 00d5d12a949c866468fff8d4dd7751de, type: 3}
+  m_PrefabInstance: {fileID: 4899442723778611164}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1319312442
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5710345400276187789}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.20851864, y: 0.11, z: 0.017583812}
+  m_Center: {x: -0.0000039339066, y: -4.656613e-10, z: -0.00015988339}
+--- !u!65 &1319312443
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5710345400276187789}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.20851864, y: 0.02, z: 0.017583812}
+  m_Center: {x: -0.0000039339066, y: -4.656613e-10, z: -0.00015988339}

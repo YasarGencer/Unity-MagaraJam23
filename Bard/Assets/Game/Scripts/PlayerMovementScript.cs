@@ -26,6 +26,8 @@ public class PlayerMovementScript : MonoBehaviour {
     private float rotationSpeed = 90f;
     private Vector3 defaultScale;
     private bool isGrounded;
+    private bool canJump = true;
+    public bool isClimbing=false;
     private void Awake() {
         inputManager = GetComponent<InputManager>();
         rb = GetComponent<Rigidbody>();
@@ -45,9 +47,9 @@ public class PlayerMovementScript : MonoBehaviour {
     private void Move() {
         if (IsRotating == false) {
             float directionX = Math.Abs(inputManager.move.x) > 0.6 ? 1 * (inputManager.move.x / Math.Abs(inputManager.move.x)) : 0;
-            if (inputManager.move.x == 1) {
+            if (inputManager.move.x >= .5) {
                 transform.localScale = new Vector3(defaultScale.x, transform.localScale.y, transform.localScale.z);
-            } else if (inputManager.move.x == -1) {
+            } else if (inputManager.move.x <= -.5) {
                 transform.localScale = new Vector3(-defaultScale.x, transform.localScale.y, transform.localScale.z);
             }
             Vector3 moveDirection = new Vector3(directionX, 0f, 0f);
@@ -71,7 +73,9 @@ public class PlayerMovementScript : MonoBehaviour {
             //characterController.Move(moveDirection * speed * Time.deltaTime);
             //rb.MovePosition(rb.position + moveDirection * speed * Time.deltaTime);
             //rb.DOMove(rb.position + moveDirection * speed * Time.deltaTime,0);
-            rb.velocity = new Vector3(directionX * speed,rb.velocity.y ,rb.velocity.z);
+            var yAxis=isClimbing && canJump ? inputManager.move.y : rb.velocity.y;
+            rb.velocity = new Vector3(directionX * speed, yAxis, rb.velocity.z);
+            
             Jump();
             
         } else {
@@ -79,10 +83,18 @@ public class PlayerMovementScript : MonoBehaviour {
         }
     }
     private void Jump() {
-        if (inputManager.jump && isGrounded==true) 
+        if (inputManager.jump && isGrounded==true && canJump) 
         {
             isGrounded = false;
+            canJump = false;
+            StartCoroutine(LocalDelay());
+            IEnumerator LocalDelay()
+            {
+                yield return new WaitForSeconds(.5f);
+                canJump = true;
+            }
             rb.AddForce(0,Mathf.Sqrt(2f * jumpHeight),0,ForceMode.Impulse);
+            animator.SetTrigger("jump");
         }
         inputManager.jump = false;
     }
@@ -165,7 +177,12 @@ public class PlayerMovementScript : MonoBehaviour {
         }
 
         // Ray'lerden biri bir þeye temas etti mi?
-        isGrounded = hitRight.collider != null || hitLeft.collider != null;
+        if (isClimbing==false)
+        {
+            isGrounded = hitRight.collider != null || hitLeft.collider != null;
+            animator.SetBool("grounded", isGrounded);
+
+        }
 
         if (hitLeft.collider!=null && hitLeft.collider.CompareTag("MovingPlatform"))
         {
@@ -176,5 +193,25 @@ public class PlayerMovementScript : MonoBehaviour {
             //characterController.Move(new Vector3(0, transform.position.y - hitRight.collider.transform.position.y + elevate, 0));
         }
     }
-    
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Ladder"))
+        {
+            isClimbing = true;
+            isGrounded = true;
+        }
+    }
+
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Ladder"))
+        {
+            isClimbing = false;
+        }
+    }
+
+
+
 }
