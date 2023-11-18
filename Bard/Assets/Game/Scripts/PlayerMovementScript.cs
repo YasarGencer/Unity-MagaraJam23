@@ -200,6 +200,11 @@ public class PlayerMovementScript : MonoBehaviour {
         {
             isClimbing = true;
             isGrounded = true;
+            animator.SetBool("climb",true);
+            if (inputManager.move.y == 0)
+                animator.speed = 0;
+            else
+                animator.speed = 1;
         }
     }
 
@@ -209,6 +214,8 @@ public class PlayerMovementScript : MonoBehaviour {
         if (other.CompareTag("Ladder"))
         {
             isClimbing = false;
+            animator.SetBool("climb", false);
+            animator.speed = 1;
         }
     }
 
