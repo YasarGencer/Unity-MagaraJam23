@@ -24,5 +24,7 @@ public class MovingPlatform : MonoBehaviour
     private void Update() {
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, endPoint.position);
+
+        platform.transform.localRotation = Quaternion.Euler(0, 0, 0);
     }
 }
