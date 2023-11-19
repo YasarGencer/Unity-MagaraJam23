@@ -415,7 +415,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0c6a08fe4a494f043bdd7e83a299ef87, type: 3}
       propertyPath: m_Name
-      value: basnc_plakas Variant
+      value: plaka-kapici
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c6a08fe4a494f043bdd7e83a299ef87, type: 3}
@@ -424,6 +424,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 0c6a08fe4a494f043bdd7e83a299ef87, type: 3}
   m_PrefabInstance: {fileID: 4119686856115391265}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &1381741043486136855
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3885894612163212912}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.02, y: 0.019999996, z: 0.019999996}
+  m_Center: {x: 0, y: 0, z: -0.00000023841858}
 --- !u!114 &7594440258772627378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,19 +452,6 @@ MonoBehaviour:
   door: {fileID: 1342041436}
   endPosition: {fileID: 833053165}
   time: 1
---- !u!65 &1381741043486136855
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3885894612163212912}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.02, y: 0.019999996, z: 0.019999996}
-  m_Center: {x: 0, y: 0, z: -0.00000023841858}
 --- !u!4 &4514480545335864522 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0c6a08fe4a494f043bdd7e83a299ef87, type: 3}
