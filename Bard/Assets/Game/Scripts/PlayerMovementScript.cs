@@ -29,6 +29,7 @@ public class PlayerMovementScript : MonoBehaviour {
     [SerializeField]private bool isGrounded;
     private bool canJump = true;
     public bool isClimbing=false;
+    public bool isMenu = false;
     private void Awake() {
         inputManager = GetComponent<InputManager>();
         rb = GetComponent<Rigidbody>();
@@ -152,11 +153,15 @@ public class PlayerMovementScript : MonoBehaviour {
             }*/
             var value = (right == true ? 1 : -1);
             //var value = transform.localScale.x > 0 ? 1 : -1;
-            transform.DOMove(transform.position + transform.right * value, .25f).OnComplete(() =>
+            if (isMenu==false)
             {
-                IsRotating = false;
-                rb.useGravity = true;
-            });
+                transform.DOMove(transform.position + transform.right * value, .25f).OnComplete(() =>
+                {
+                    IsRotating = false;
+                    rb.useGravity = true;
+                });
+            }
+            
 
         });
 
