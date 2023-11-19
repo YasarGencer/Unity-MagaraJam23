@@ -26,6 +26,6 @@ public class TimeManager : MonoBehaviour {
 
     }
     public void Pause(bool pause) {
-        isCounting = pause;
+        isCounting = !pause;
     }
 }

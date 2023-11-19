@@ -51,6 +51,11 @@ public class PlayerMovementScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        if (MainManager.Instance.GameManager.IsPaused)
+            return;
+        jumpSound.volume = GameManager.SFXVolume;
+        plateSound.volume = GameManager.SFXVolume;
+
         CheckGround();
         Move();
         
@@ -292,7 +297,7 @@ public class PlayerMovementScript : MonoBehaviour {
         float startVolume = 0f;
         audioSource.volume = startVolume;
 
-        while (audioSource.volume < 1f) {
+        while (audioSource.volume < GameManager.SFXVolume) {
             audioSource.volume += Time.deltaTime / duration;
             yield return null;
         }
