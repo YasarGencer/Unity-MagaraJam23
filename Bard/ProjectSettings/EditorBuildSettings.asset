@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Game/Scenes/MainMenu.unity
+    guid: 1cf9052da7d11464e91d0ea1dd505e33
+  - enabled: 1
+    path: Assets/Game/Scenes/Yasar-Test 2.unity
+    guid: 6de567b4a562241438e6e88a5528dc4f
   m_configObjects: {}
