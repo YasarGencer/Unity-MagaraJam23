@@ -10,7 +10,7 @@ public class RotateCollider : MonoBehaviour
         if (other != null)
             if (other.transform.CompareTag("Player"))
             {
-                Debug.Log(other.attachedRigidbody.velocity.x);
+                //Debug.Log(other.attachedRigidbody.velocity.x);
                 if (other.attachedRigidbody.velocity.x == 0)
                     Rotator(other.transform.localScale.x >= 0, other.transform);
                 else

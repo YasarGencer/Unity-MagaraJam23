@@ -44,8 +44,8 @@ public class ExhaustScript : MonoBehaviour
             
             
             yield return new WaitForSeconds(pushDelay);
-            Debug.Log("Salam");
-            Debug.Log("incollider: " + inCollider);
+            //Debug.Log("Salam");
+            //Debug.Log("incollider: " + inCollider);
             particle.Play();
             if (inCollider == true)
             {
