@@ -15,6 +15,18 @@ public class GameManager : MonoBehaviour
             return;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+    public void MainMenu() {
+        if (!isInit)
+            return;
+        SceneManager.LoadScene(1);
+    }
+    private void OnApplicationFocus(bool focus) {
+        if (focus == false)
+            Pause(false);
+    }
+    public void Pause(bool value) {
+
+    }
     public bool GetIfRotating() {
         return MainManager.Instance.TowerManager.GetIfRotating();
     }

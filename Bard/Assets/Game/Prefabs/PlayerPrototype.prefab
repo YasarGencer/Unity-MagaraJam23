@@ -73,7 +73,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 674e5dd816763a046a22e4a143c4109a, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -383,7 +383,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e6c80e8c49efeba4b91e7de77777fafc, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a293b08065e5dd443b4817aaad80abd0, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -674,7 +674,6 @@ MonoBehaviour:
   isClimbing: 0
   isMenu: 0
   walkSound: {fileID: 4002689944026644660}
-  runSound: {fileID: 6919190412005062722}
   jumpSound: {fileID: 6879302475604662103}
   plateSound: {fileID: 2576962224764016655}
 --- !u!95 &1607847221452053503

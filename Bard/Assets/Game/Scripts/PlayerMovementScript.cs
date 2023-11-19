@@ -32,7 +32,7 @@ public class PlayerMovementScript : MonoBehaviour {
     public bool isMenu = false;
 
     [SerializeField] private AudioSource walkSound;
-    [SerializeField] private AudioSource runSound;
+    //[SerializeField] private AudioSource runSound;
     [SerializeField] private AudioSource jumpSound;
     [SerializeField] private AudioSource plateSound;
 
@@ -78,31 +78,36 @@ public class PlayerMovementScript : MonoBehaviour {
 
             if(moveDirection.x != 0 && isGrounded) {
                 animator.SetFloat("speed", inputManager.run ? 1 : .5f);
-                if (inputManager.run) {
-                    if (!runSound.isPlaying) {
-                        runSound.Play();
-                    }
-                    if (walkSound.isPlaying) {
-                        walkSound.Stop();
-                    }
-                } else {
-                    if (!walkSound.isPlaying) {
-                        Debug.Log("walk Sound");
-                        walkSound.Play();
-                    }
-                    if (runSound.isPlaying) {
-                        runSound.Stop();
-                    }
+                if (!walkSound.isPlaying) {
+                    StartCoroutine(FadeIn(walkSound, .2f));
+                    walkSound.Play();   
                 }
+                //if (inputManager.run) {
+                //    if (!runSound.isPlaying) {
+                //        StartCoroutine(FadeIn(runSound, .2f));
+                //        runSound.Play();
+                //    }
+                //    if (walkSound.isPlaying) {
+                //        StartCoroutine(FadeOut(walkSound, .2f));
+                //    }
+                //}
+                //else {
+                //    if (!walkSound.isPlaying) {
+                //        StartCoroutine(FadeIn(walkSound, .2f));
+                //        walkSound.Play();
+                //    }
+                //    if (runSound.isPlaying) {
+                //        StartCoroutine(FadeOut(runSound, .2f));
+                //    }
+                //}
             } else {
                 animator.SetFloat("speed", 0);
                 if (walkSound.isPlaying) {
-                    Debug.Log("walk Sound stop");
-                    walkSound.Stop();
+                    StartCoroutine(FadeOut(walkSound, .2f));
                 }
-                if (runSound.isPlaying) {
-                    runSound.Stop();
-                }
+                //if (runSound.isPlaying) {
+                //    StartCoroutine(FadeOut(runSound, .2f));
+                //}
             }
 
             //characterController.Move(moveDirection * speed * Time.deltaTime);
@@ -282,6 +287,29 @@ public class PlayerMovementScript : MonoBehaviour {
         }
     }
 
+    // Fade in efekti için
+    IEnumerator FadeIn(AudioSource audioSource, float duration) {
+        float startVolume = 0f;
+        audioSource.volume = startVolume;
+
+        while (audioSource.volume < 1f) {
+            audioSource.volume += Time.deltaTime / duration;
+            yield return null;
+        }
+    }
+
+    // Fade out efekti için
+    IEnumerator FadeOut(AudioSource audioSource, float duration) {
+        float startVolume = audioSource.volume;
+
+        while (audioSource.volume > 0f) {
+            audioSource.volume -= startVolume * Time.deltaTime / duration;
+            yield return null;
+        }
+
+        audioSource.Stop();
+        audioSource.volume = startVolume;
+    }
 
 
 }
