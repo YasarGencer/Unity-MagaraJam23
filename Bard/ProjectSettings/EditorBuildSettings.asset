@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Game/Scenes/Yasar-Test 2.unity
     guid: 6de567b4a562241438e6e88a5528dc4f
+  - enabled: 1
+    path: Assets/Game/Scenes/Ending.unity
+    guid: 8259c84c3af7d444d909d30d4231bda8
+  - enabled: 1
+    path: Assets/Game/Scenes/Quit.unity
+    guid: 6a3d7107cbf73854b882504837e70627
   m_configObjects: {}

@@ -28,5 +28,7 @@ public class SoundManager : MonoBehaviour
     private void Update()
     {
         audioSource.volume = GameManager.MusicVolume;
+        if (SceneManager.GetActiveScene().buildIndex == 4)
+            Destroy(gameObject);
     }
 }
