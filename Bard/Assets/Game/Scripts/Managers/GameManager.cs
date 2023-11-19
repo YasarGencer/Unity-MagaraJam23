@@ -43,12 +43,16 @@ public class GameManager : MonoBehaviour
             return;
         if (!canPause) 
             return;
-        if (Input.GetKeyDown(KeyCode.Escape))
-            Pause(!isPaused); 
+        if(SceneManager.GetActiveScene().buildIndex != 1)
+            if (Input.GetKeyDown(KeyCode.Escape))
+                Pause(!isPaused); 
     }
     private void OnApplicationFocus(bool focus) {
         if (focus == false)
             Pause(true);
+    }
+    public void Options(bool value) {
+        pauseScreen.DOFade(value ? 1 : 0, .25f);
     }
     public void Pause(bool value) {
         music.value = GameManager.MusicVolume;
