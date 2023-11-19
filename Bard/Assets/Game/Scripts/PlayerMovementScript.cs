@@ -195,8 +195,9 @@ public class PlayerMovementScript : MonoBehaviour {
         if (isClimbing==false)
         {
             isGrounded = hitRight.collider != null || hitLeft.collider != null;
+            if(!isGrounded && canJump)
+                animator.SetTrigger("instantFall");
             animator.SetBool("grounded", isGrounded);
-
         }
 /*
         if (hitLeft.collider!=null && hitLeft.collider.CompareTag("MovingPlatform"))
