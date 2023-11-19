@@ -5,8 +5,10 @@ using UnityEngine;
 public class CubeButton : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] GameObject objOpen;
-    [SerializeField] GameObject objClose;
+    public GameObject objTrue;
+    public GameObject objTrue2;
+    public GameObject objFalse;
+    public GameObject objFalse2;
     void Start()
     {
         
@@ -26,7 +28,21 @@ public class CubeButton : MonoBehaviour
     }
     private void OpenCloser()
     {
-        objOpen.SetActive(true);
-        objClose.SetActive(false);
+        if (objTrue != null)
+        {
+            objTrue.SetActive(true);
+        }
+        if (objTrue2 != null)
+        {
+            objTrue2.SetActive(true);
+        }
+        if (objFalse != null)
+        {
+            objFalse.SetActive(false);
+        }
+        if (objFalse2 != null)
+        {
+            objFalse2.SetActive(false);
+        }
     }
 }

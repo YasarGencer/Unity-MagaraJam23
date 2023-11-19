@@ -34,6 +34,7 @@ public class cubeSpawner : MonoBehaviour
 
         // Ýsteðe baðlý olarak yeni küpü B objesinin child'ý yapabilirsiniz
         yeniKup.transform.parent = spawnTransform.transform;
+        yeniKup.transform.localScale = yeniKup.transform.localScale * 0.95f;
         //Instantiate(theCube);
     }
     private void OnTriggerEnter(Collider other)

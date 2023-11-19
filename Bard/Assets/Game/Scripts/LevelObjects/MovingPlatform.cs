@@ -10,6 +10,7 @@ public class MovingPlatform : MonoBehaviour
     [SerializeField] LineRenderer lineRenderer;
     [SerializeField] float stopTime = 1;
     [SerializeField] float moveTime = 1;
+
     private void Start() {
         StartCoroutine(Move());
         lineRenderer.positionCount = 2;
