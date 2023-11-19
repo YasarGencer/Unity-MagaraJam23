@@ -74,9 +74,10 @@ public class PlayerMovementScript : MonoBehaviour {
             //characterController.Move(moveDirection * speed * Time.deltaTime);
             //rb.MovePosition(rb.position + moveDirection * speed * Time.deltaTime);
             //rb.DOMove(rb.position + moveDirection * speed * Time.deltaTime,0);
-            var yAxis=isClimbing && canJump ? inputManager.move.y : rb.velocity.y;
+            //var yAxis=isClimbing && canJump ? inputManager.move.y : rb.velocity.y;
 
-
+            if (isClimbing && canJump)
+                rb.velocity = new Vector3(rb.velocity.x, inputManager.move.y, rb.velocity.z);
 
             //rb.velocity = new Vector3(directionX * speed, yAxis, rb.velocity.z);  //old system
             if (MathF.Abs(rb.velocity.x)<=speed || (rb.velocity.x/MathF.Abs(rb.velocity.x) != (directionX/ MathF.Abs(directionX))))
@@ -221,6 +222,7 @@ public class PlayerMovementScript : MonoBehaviour {
                 animator.speed = 0;
             else
                 animator.speed = 1;
+            rb.useGravity = false;
         }
     }
 
@@ -232,6 +234,7 @@ public class PlayerMovementScript : MonoBehaviour {
             isClimbing = false;
             animator.SetBool("climb", false);
             animator.speed = 1;
+            rb.useGravity = true;
         }
     }
 
