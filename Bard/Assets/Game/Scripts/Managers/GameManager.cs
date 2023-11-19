@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     bool isInit = false;
-    [SerializeField] CanvasGroup pauseScreen;
+    [SerializeField] CanvasGroup pauseScreen, optionsScreen;
     [SerializeField] Slider music, sfx;
     bool canPause = true;
     bool isPaused = false;
@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
             Pause(true);
     }
     public void Options(bool value) {
-        pauseScreen.DOFade(value ? 1 : 0, .25f);
+        optionsScreen.DOFade(value ? 1 : 0, .25f);
     }
     public void Pause(bool value) {
         music.value = GameManager.MusicVolume;

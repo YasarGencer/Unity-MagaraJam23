@@ -2275,6 +2275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseScreen: {fileID: 161659299813095229}
+  optionsScreen: {fileID: 4880668032516820954}
   music: {fileID: 1114031650274232189}
   sfx: {fileID: 5179996230175019447}
 --- !u!114 &7449524840754642979
