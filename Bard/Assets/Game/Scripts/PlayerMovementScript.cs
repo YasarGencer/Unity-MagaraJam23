@@ -30,6 +30,12 @@ public class PlayerMovementScript : MonoBehaviour {
     private bool canJump = true;
     public bool isClimbing=false;
     public bool isMenu = false;
+
+    [SerializeField] private AudioSource walkSound;
+    [SerializeField] private AudioSource runSound;
+    [SerializeField] private AudioSource jumpSound;
+    [SerializeField] private AudioSource plateSound;
+
     private void Awake() {
         inputManager = GetComponent<InputManager>();
         rb = GetComponent<Rigidbody>();
@@ -38,6 +44,9 @@ public class PlayerMovementScript : MonoBehaviour {
     void Start() {
         defaultScale = transform.localScale;
         Physics.IgnoreLayerCollision(3, 6);
+
+
+
     }
 
     // Update is called once per frame
@@ -55,7 +64,7 @@ public class PlayerMovementScript : MonoBehaviour {
                 transform.localScale = new Vector3(-defaultScale.x, transform.localScale.y, transform.localScale.z);
             }
             Vector3 moveDirection = new Vector3(directionX, 0f, 0f);
-            moveDirection = transform.TransformDirection(moveDirection); // Yönü objenin yönüne çevir
+            moveDirection = transform.TransformDirection(moveDirection); // Yï¿½nï¿½ objenin yï¿½nï¿½ne ï¿½evir
 
             float speed = inputManager.run ? runSpeed : moveSpeed;
 
@@ -67,10 +76,34 @@ public class PlayerMovementScript : MonoBehaviour {
             }
 
 
-            if(moveDirection.x != 0)
+            if(moveDirection.x != 0 && isGrounded) {
                 animator.SetFloat("speed", inputManager.run ? 1 : .5f);
-            else
+                if (inputManager.run) {
+                    if (!runSound.isPlaying) {
+                        runSound.Play();
+                    }
+                    if (walkSound.isPlaying) {
+                        walkSound.Stop();
+                    }
+                } else {
+                    if (!walkSound.isPlaying) {
+                        Debug.Log("walk Sound");
+                        walkSound.Play();
+                    }
+                    if (runSound.isPlaying) {
+                        runSound.Stop();
+                    }
+                }
+            } else {
                 animator.SetFloat("speed", 0);
+                if (walkSound.isPlaying) {
+                    Debug.Log("walk Sound stop");
+                    walkSound.Stop();
+                }
+                if (runSound.isPlaying) {
+                    runSound.Stop();
+                }
+            }
 
             //characterController.Move(moveDirection * speed * Time.deltaTime);
             //rb.MovePosition(rb.position + moveDirection * speed * Time.deltaTime);
@@ -106,6 +139,7 @@ public class PlayerMovementScript : MonoBehaviour {
             }
             rb.AddForce(0,Mathf.Sqrt(2f * jumpHeight),0,ForceMode.Impulse);
             animator.SetTrigger("jump");
+            jumpSound.Play();
         }
         inputManager.jump = false;
     }
@@ -127,7 +161,7 @@ public class PlayerMovementScript : MonoBehaviour {
             transform.rotation = Quaternion.Euler(currentRotation.x, newYRotation, currentRotation.z);
 
             Vector3 moveDirection = Vector3.zero;
-            //moveDirection = transform.TransformDirection(transform.right); // Yönü objenin yönüne çevir
+            //moveDirection = transform.TransformDirection(transform.right); // Yï¿½nï¿½ objenin yï¿½nï¿½ne ï¿½evir
             /*float tempRotate = transform.localRotation.eulerAngles.y;
             Debug.Log("tempRotate: " + tempRotate);
             if (tempRotate == 0 || tempRotate == 360)
@@ -168,7 +202,7 @@ public class PlayerMovementScript : MonoBehaviour {
     }
     private void OnDrawGizmos()
     {
-        // Ray baþlangýç noktalarýný belirle
+        // Ray baï¿½langï¿½ï¿½ noktalarï¿½nï¿½ belirle
         Vector3 rayOriginRight =transform.position + Vector3.right* vectorOffset;
         Vector3 rayOriginLeft = transform.position - Vector3.right*vectorOffset;
 
@@ -182,10 +216,10 @@ public class PlayerMovementScript : MonoBehaviour {
 
     private void CheckGround()
     {
-        // Rayleri aþaðý doðru gönder
+        // Rayleri aï¿½aï¿½ï¿½ doï¿½ru gï¿½nder
         RaycastHit hitRight, hitLeft;
 
-        // Sað ray
+        // Saï¿½ ray
         if (Physics.Raycast(transform.position + Vector3.right * vectorOffset, Vector3.down, out hitRight, rayDistance))
         {
             //Debug.Log("Right Ray hit something!");
@@ -197,7 +231,7 @@ public class PlayerMovementScript : MonoBehaviour {
             //Debug.Log("Left Ray hit something!");
         }
 
-        // Ray'lerden biri bir þeye temas etti mi?
+        // Ray'lerden biri bir ï¿½eye temas etti mi?
         if (isClimbing==false)
         {
             isGrounded = hitRight.collider != null || hitLeft.collider != null;
@@ -228,6 +262,11 @@ public class PlayerMovementScript : MonoBehaviour {
             else
                 animator.speed = 1;
             rb.useGravity = false;
+        }
+    }
+    private void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("Plate")) {
+            plateSound.Play();
         }
     }
 

@@ -8,6 +8,7 @@ TagManager:
   - Ladder
   - ForceArea
   - TheCube
+  - Plate
   layers:
   - Default
   - TransparentFX
